@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useState } from "react";
+import { log } from "./common/Common";
+import useApi from "./hooks/useApi";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const { getAllPhotos } = useApi();
+  const [photos, setPhotos] = useState([]);
+  const getData = async () => {
+    try {
+      let data = await getAllPhotos();
+      setPhotos(data);
+    } catch (error) {
+      log("Error: ", error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return <div>Hey</div>;
 }
 
 export default App;
