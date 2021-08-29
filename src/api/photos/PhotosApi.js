@@ -1,14 +1,13 @@
+import { URL_API } from "../../config";
 import { post } from "../HttpClient";
 
-const URL = "http://localhost/api";
-
 const getAllPhotos = async () => {
-  let url = URL + "/photos";
+  let url = URL_API + "/photos";
   return post(url);
 };
 
 const getPhotosUploadUrl = () => {
-  let url = URL + "/photos/upload";
+  let url = URL_API + "/photos/upload";
   return url;
 };
 
