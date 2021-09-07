@@ -17,7 +17,7 @@ const Photos = () => {
     data?.map((img) => {
       finalArr.push({
         src: URL_DATA + "/" + img.url,
-        thumbnail: URL_DATA + "/thumb/thumb_" + img.fileName,
+        thumbnail: URL_DATA + "/public/thumb/thumb_" + img.fileName,
         thumbnailWidth: 250,
         thumbnailHeight: 250,
       });

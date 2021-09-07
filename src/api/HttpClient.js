@@ -19,6 +19,7 @@ export const post = (url, params) => {
           params,
           error,
         });
+        reject(error);
       });
   });
 };

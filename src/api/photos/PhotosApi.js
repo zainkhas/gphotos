@@ -11,8 +11,14 @@ const getPhotosUploadUrl = () => {
   return url;
 };
 
+const deleteAll = () => {
+  let url = URL_API + "/deleteAll";
+  return post(url);
+};
+
 const photosApi = {
   getAllPhotos,
   getPhotosUploadUrl,
+  deleteAll,
 };
 export default photosApi;
