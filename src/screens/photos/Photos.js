@@ -5,9 +5,12 @@ import Gallery from "react-grid-gallery";
 import { URL_DATA } from "../../config";
 import { Empty } from "antd";
 import { createUseStyles } from "react-jss";
+import Lightbox from "../../components/LightBox";
 
 const Photos = () => {
   const [photos, setPhotos] = useState([]);
+  const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(false);
   const { getAllPhotos } = useApi();
   const styles = useStyles();
 
@@ -38,6 +41,21 @@ const Photos = () => {
     }
   };
 
+  const onClickThumbnail = (index) => {
+    setPhotoIndex(index);
+    setIsLightBoxOpen(true);
+  };
+
+  const closeLightBox = () => setIsLightBoxOpen(false);
+
+  // const onMovePrevRequest = () =>
+  //   setPhotoIndex(
+  //     (prevIndex) => (prevIndex + photos.length - 1) % photos.length
+  //   );
+
+  // const onMoveNextRequest = () =>
+  //   setPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length);
+
   useEffect(() => {
     getPhotos();
   }, []);
@@ -52,7 +70,24 @@ const Photos = () => {
 
   return (
     <div className={styles.contentWrapper}>
-      <Gallery images={photos} />
+      <Gallery
+        images={photos}
+        enableLightbox={false}
+        onClickThumbnail={onClickThumbnail}
+      />
+
+      {/* {isLightBoxOpen && (
+        <Lightbox
+          mainSrc={photos[photoIndex].src}
+          nextSrc={photos[(photoIndex + 1) % photos.length].src}
+          prevSrc={photos[(photoIndex + photos.length - 1) % photos.length].src}
+          onCloseRequest={closeLightBox}
+          onMovePrevRequest={onMovePrevRequest}
+          onMoveNextRequest={onMoveNextRequest}
+        />
+      )} */}
+
+      <Lightbox isOpen={isLightBoxOpen} onClose={closeLightBox} />
     </div>
   );
 };
@@ -66,7 +101,6 @@ const useStyles = createUseStyles({
   },
   contentWrapper: {
     background: "#fff",
-
     minHeight: 360,
   },
 });
