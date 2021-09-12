@@ -48,12 +48,12 @@ const Photos = () => {
 
   const closeLightBox = () => setIsLightBoxOpen(false);
 
-  const onMovePrevRequest = () =>
+  const onPrevious = () =>
     setPhotoIndex(
       (prevIndex) => (prevIndex + photos.length - 1) % photos.length
     );
 
-  const onMoveNextRequest = () =>
+  const onNext = () =>
     setPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length);
 
   useEffect(() => {
@@ -93,8 +93,8 @@ const Photos = () => {
         currentImage={photos[photoIndex]}
         nextSrc={photos[(photoIndex + 1) % photos.length].src}
         prevSrc={photos[(photoIndex + photos.length - 1) % photos.length].src}
-        onMovePrevRequest={onMovePrevRequest}
-        onMoveNextRequest={onMoveNextRequest}
+        onPrevious={onPrevious}
+        onNext={onNext}
       />
     </div>
   );

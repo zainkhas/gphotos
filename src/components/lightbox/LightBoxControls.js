@@ -2,12 +2,12 @@ import React from "react";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { createUseStyles } from "react-jss";
 
-const LightBoxControls = () => {
+const LightBoxControls = ({ onLeftClick, onRightClick }) => {
   const styles = useStyles();
   return (
     <div className={styles.controls}>
       <div className={styles.slideIconContainer}>
-        <div className={styles.iconContainer}>
+        <div className={styles.iconContainer} onClick={onLeftClick}>
           <LeftOutlined className={styles.icon} />
         </div>
       </div>
@@ -16,7 +16,7 @@ const LightBoxControls = () => {
           styles.slideIconContainer + " " + styles.slideIconContainerRight
         }
       >
-        <div className={styles.iconContainer}>
+        <div className={styles.iconContainer} onClick={onRightClick}>
           <RightOutlined className={styles.icon} />
         </div>
       </div>
@@ -51,6 +51,9 @@ const useStyles = createUseStyles({
     margin: 15,
     backgroundColor: "#242424",
     borderRadius: 50,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   icon: {
     color: "#FFF",

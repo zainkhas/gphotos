@@ -4,7 +4,14 @@ import Modal from "react-modal";
 import LightBoxControls from "./LightBoxControls";
 import LightBoxHeader from "./LightBoxHeader";
 
-const LightBox = ({ isOpen, onOpen, onClose, currentImage }) => {
+const LightBox = ({
+  isOpen,
+  onOpen,
+  onClose,
+  currentImage,
+  onNext,
+  onPrevious,
+}) => {
   const styles = useStyles();
   const [infoOpen, setInfoOpen] = useState(false);
   const infoPanel = useRef(null);
@@ -37,7 +44,7 @@ const LightBox = ({ isOpen, onOpen, onClose, currentImage }) => {
           <div className={styles.imageContainer}>
             <img src={currentImage.src} alt="Main" className={styles.image} />
           </div>
-          <LightBoxControls />
+          <LightBoxControls onLeftClick={onPrevious} onRightClick={onNext} />
         </div>
         <div ref={infoPanel} className={styles.info}></div>
       </div>
