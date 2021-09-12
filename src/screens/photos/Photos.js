@@ -10,7 +10,7 @@ import Lightbox from "../../components/LightBox";
 const Photos = () => {
   const [photos, setPhotos] = useState([]);
   const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
-  const [photoIndex, setPhotoIndex] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
   const { getAllPhotos } = useApi();
   const styles = useStyles();
 
@@ -48,13 +48,13 @@ const Photos = () => {
 
   const closeLightBox = () => setIsLightBoxOpen(false);
 
-  // const onMovePrevRequest = () =>
-  //   setPhotoIndex(
-  //     (prevIndex) => (prevIndex + photos.length - 1) % photos.length
-  //   );
+  const onMovePrevRequest = () =>
+    setPhotoIndex(
+      (prevIndex) => (prevIndex + photos.length - 1) % photos.length
+    );
 
-  // const onMoveNextRequest = () =>
-  //   setPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length);
+  const onMoveNextRequest = () =>
+    setPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length);
 
   useEffect(() => {
     getPhotos();
@@ -87,7 +87,15 @@ const Photos = () => {
         />
       )} */}
 
-      <Lightbox isOpen={isLightBoxOpen} onClose={closeLightBox} />
+      <Lightbox
+        isOpen={isLightBoxOpen}
+        onClose={closeLightBox}
+        currentImage={photos[photoIndex]}
+        nextSrc={photos[(photoIndex + 1) % photos.length].src}
+        prevSrc={photos[(photoIndex + photos.length - 1) % photos.length].src}
+        onMovePrevRequest={onMovePrevRequest}
+        onMoveNextRequest={onMoveNextRequest}
+      />
     </div>
   );
 };

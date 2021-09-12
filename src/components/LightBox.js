@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { createUseStyles } from "react-jss";
 import Modal from "react-modal";
-import { ArrowLeftOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import LightBoxHeader from "./LightBoxHeader";
 
-const LightBox = ({ isOpen, onOpen, onClose }) => {
+const LightBox = ({ isOpen, onOpen, onClose, currentImage }) => {
   const styles = useStyles();
   const [infoOpen, setInfoOpen] = useState(false);
+  const infoPanel = useRef(null);
+  const viewPort = useRef(null);
 
-  const toggleInfo = () => setInfoOpen((prev) => !prev);
+  const toggleInfo = () => {
+    if (infoOpen) {
+      infoPanel.current.style.width = "0";
+      viewPort.current.style.marginRight = "0";
+      setInfoOpen(false);
+    } else {
+      console.log("infoPanel: ", infoPanel.current);
+      infoPanel.current.style.width = "360px";
+      viewPort.current.style.marginRight = "360px";
+      setInfoOpen(true);
+    }
+  };
 
   return (
     <Modal
@@ -18,45 +31,19 @@ const LightBox = ({ isOpen, onOpen, onClose }) => {
       overlayClassName="LightBoxOverlay"
     >
       <div className={styles.modalContainer}>
-        <div className={styles.viewPort}>
-          <div className={styles.header}>
-            <ArrowLeftOutlined
-              className={styles.headerIcon}
-              onClick={onClose}
-            />
-            <div className={styles.headerMenu}>
-              <InfoCircleOutlined
-                className={styles.headerIcon}
-                onClick={toggleInfo}
-              />
-            </div>
+        <div ref={viewPort} className={styles.viewPort}>
+          <LightBoxHeader onClose={onClose} toggleInfo={toggleInfo} />
+          <div className={styles.imageContainer}>
+            <img src={currentImage.src} alt="Main" className={styles.image} />
           </div>
-          <div className={styles.imageContainer}></div>
         </div>
-        {infoOpen && <div className={styles.info}></div>}
+        <div ref={infoPanel} className={styles.info}></div>
       </div>
     </Modal>
   );
 };
 
 const useStyles = createUseStyles({
-  header: {
-    display: "flex",
-    paddingRight: 20,
-    paddingLeft: 20,
-    paddingTop: 20,
-    paddingBottom: 20,
-  },
-  headerMenu: {
-    display: "flex",
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-  headerIcon: {
-    color: "#FFF",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
   modalContainer: {
     display: "flex",
     flex: 1,
@@ -66,15 +53,28 @@ const useStyles = createUseStyles({
     display: "flex",
     flex: 2,
     flexDirection: "column",
+    transition: "margin-right .5s",
   },
   info: {
-    display: "flex",
-    flex: 1,
+    position: "fixed",
+    top: 0,
+    right: 0,
+    width: 0,
+    height: "100%",
     backgroundColor: "#FFF",
+    transition: "0.5s",
   },
   imageContainer: {
     display: "flex",
     flex: 1,
+    overflow: "hidden",
+    justifyContent: "center",
+  },
+  image: {
+    maxWidth: "100%",
+    maxHeight: "100%",
+    userSelect: "none",
+    objectFit: "contain",
   },
 });
 
