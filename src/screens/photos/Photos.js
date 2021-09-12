@@ -5,7 +5,7 @@ import Gallery from "react-grid-gallery";
 import { URL_DATA } from "../../config";
 import { Empty } from "antd";
 import { createUseStyles } from "react-jss";
-import Lightbox from "../../components/LightBox";
+import Lightbox from "../../components/lightbox/LightBox";
 
 const Photos = () => {
   const [photos, setPhotos] = useState([]);

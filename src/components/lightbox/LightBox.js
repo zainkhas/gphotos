@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { createUseStyles } from "react-jss";
 import Modal from "react-modal";
+import LightBoxControls from "./LightBoxControls";
 import LightBoxHeader from "./LightBoxHeader";
 
 const LightBox = ({ isOpen, onOpen, onClose, currentImage }) => {
@@ -36,6 +37,7 @@ const LightBox = ({ isOpen, onOpen, onClose, currentImage }) => {
           <div className={styles.imageContainer}>
             <img src={currentImage.src} alt="Main" className={styles.image} />
           </div>
+          <LightBoxControls />
         </div>
         <div ref={infoPanel} className={styles.info}></div>
       </div>
