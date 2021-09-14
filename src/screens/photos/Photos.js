@@ -15,16 +15,12 @@ const Photos = () => {
   const styles = useStyles();
 
   const transformData = (data) => {
-    let finalArr = [];
-
-    data?.map((img) => {
-      finalArr.push({
-        src: URL_DATA + "/" + img.url,
-        thumbnail: URL_DATA + "/public/thumb/thumb_" + img.fileName,
-        thumbnailWidth: 250,
-        thumbnailHeight: 250,
-      });
-    });
+    let finalArr = data?.map((img) => ({
+      src: URL_DATA + "/public/uploads/" + img.name,
+      thumbnail: URL_DATA + "/public/thumb/thumb_" + img.name,
+      thumbnailWidth: 250,
+      thumbnailHeight: 250,
+    }));
 
     log("Transformed: ", finalArr);
     return finalArr;
@@ -75,17 +71,6 @@ const Photos = () => {
         enableLightbox={false}
         onClickThumbnail={onClickThumbnail}
       />
-
-      {/* {isLightBoxOpen && (
-        <Lightbox
-          mainSrc={photos[photoIndex].src}
-          nextSrc={photos[(photoIndex + 1) % photos.length].src}
-          prevSrc={photos[(photoIndex + photos.length - 1) % photos.length].src}
-          onCloseRequest={closeLightBox}
-          onMovePrevRequest={onMovePrevRequest}
-          onMoveNextRequest={onMoveNextRequest}
-        />
-      )} */}
 
       <Lightbox
         isOpen={isLightBoxOpen}
