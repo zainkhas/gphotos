@@ -4,18 +4,12 @@ import Modal from "react-modal";
 import LightBoxControls from "./LightBoxControls";
 import LightBoxHeader from "./LightBoxHeader";
 
-const LightBox = ({
-  isOpen,
-  onOpen,
-  onClose,
-  currentImage,
-  onNext,
-  onPrevious,
-}) => {
+const LightBox = ({ isOpen, onClose, currentImage, onNext, onPrevious }) => {
   const styles = useStyles();
   const [infoOpen, setInfoOpen] = useState(false);
   const infoPanel = useRef(null);
   const viewPort = useRef(null);
+  const mainDiv = useRef(null);
 
   const toggleInfo = () => {
     if (infoOpen) {
@@ -30,6 +24,24 @@ const LightBox = ({
     }
   };
 
+  const onKeyDown = (event) => {
+    switch (event.key) {
+      case "ArrowLeft":
+        onPrevious();
+        break;
+      case "ArrowRight":
+        onNext();
+        break;
+      default:
+        console.log("Key pressed: ", event.key);
+        break;
+    }
+  };
+
+  const onOpen = () => {
+    mainDiv.current.focus();
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -38,7 +50,12 @@ const LightBox = ({
       className="LightBoxModal"
       overlayClassName="LightBoxOverlay"
     >
-      <div className={styles.modalContainer}>
+      <div
+        ref={mainDiv}
+        className={styles.modalContainer}
+        tabIndex={0}
+        onKeyDown={onKeyDown}
+      >
         <div ref={viewPort} className={styles.viewPort}>
           <LightBoxHeader onClose={onClose} toggleInfo={toggleInfo} />
           <div className={styles.imageContainer}>
@@ -57,6 +74,9 @@ const useStyles = createUseStyles({
     display: "flex",
     flex: 1,
     height: "100%",
+    "&:focus": {
+      outline: "none",
+    },
   },
   viewPort: {
     display: "flex",
