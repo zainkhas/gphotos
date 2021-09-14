@@ -63,9 +63,10 @@ const useStyles = createUseStyles({
     flex: 2,
     flexDirection: "column",
     transition: "margin-right .5s",
+    position: "relative",
   },
   info: {
-    position: "fixed",
+    position: "absolute",
     top: 0,
     right: 0,
     width: 0,

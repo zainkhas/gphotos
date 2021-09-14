@@ -24,10 +24,13 @@ const useStyles = createUseStyles({
     right: 0,
     top: 0,
     display: "flex",
+    zIndex: 1,
     paddingRight: 20,
     paddingLeft: 20,
     paddingTop: 20,
     paddingBottom: 20,
+    height: "72px",
+    alignItems: "center",
   },
   headerIcon: {
     color: "#FFF",

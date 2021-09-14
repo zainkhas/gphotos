@@ -49,7 +49,7 @@ const useStyles = createUseStyles({
   iconContainer: {
     padding: 15,
     margin: 15,
-    backgroundColor: "#242424",
+    backgroundColor: "rgba(66,66,66,0.54)",
     borderRadius: 50,
     display: "flex",
     justifyContent: "center",
@@ -57,7 +57,7 @@ const useStyles = createUseStyles({
   },
   icon: {
     color: "#FFF",
-    fontSize: 25,
+    fontSize: 20,
   },
 });
 
