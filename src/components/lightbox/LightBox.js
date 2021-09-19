@@ -3,6 +3,7 @@ import { createUseStyles } from "react-jss";
 import Modal from "react-modal";
 import LightBoxControls from "./LightBoxControls";
 import LightBoxHeader from "./LightBoxHeader";
+import PhotoInfo from "./PhotoInfo";
 
 const LightBox = ({ isOpen, onClose, currentImage, onNext, onPrevious }) => {
   const styles = useStyles();
@@ -17,7 +18,6 @@ const LightBox = ({ isOpen, onClose, currentImage, onNext, onPrevious }) => {
       viewPort.current.style.marginRight = "0";
       setInfoOpen(false);
     } else {
-      console.log("infoPanel: ", infoPanel.current);
       infoPanel.current.style.width = "360px";
       viewPort.current.style.marginRight = "360px";
       setInfoOpen(true);
@@ -63,7 +63,9 @@ const LightBox = ({ isOpen, onClose, currentImage, onNext, onPrevious }) => {
           </div>
           <LightBoxControls onLeftClick={onPrevious} onRightClick={onNext} />
         </div>
-        <div ref={infoPanel} className={styles.info}></div>
+        <div ref={infoPanel} className={styles.info}>
+          <PhotoInfo image={currentImage} onClose={onClose} />
+        </div>
       </div>
     </Modal>
   );

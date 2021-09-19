@@ -20,6 +20,8 @@ const Photos = () => {
       thumbnail: URL_DATA + "/public/thumb/thumb_" + img.name,
       thumbnailWidth: 250,
       thumbnailHeight: 250,
+      metaData: img?.metaData != "" ? JSON.parse(img.metaData) : null,
+      ...img,
     }));
 
     log("Transformed: ", finalArr);
