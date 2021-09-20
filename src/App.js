@@ -1,30 +1,14 @@
 import "./App.css";
-import { useEffect, useState } from "react";
-import { log } from "./common/Common";
-import useApi from "./hooks/useApi";
-import Home from "./screens/home/Home";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Upload from "./screens/upload/Upload";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomeNavigator from "./navigation/HomeNavigator";
+import { Helmet } from "react-helmet";
 
 function App() {
-  const { getAllPhotos } = useApi();
-  const [photos, setPhotos] = useState([]);
-  const getData = async () => {
-    try {
-      let data = await getAllPhotos();
-      setPhotos(data);
-    } catch (error) {
-      log("Error: ", error);
-    }
-  };
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
   return (
     <Router>
+      <Helmet>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Helmet>
       <Route exact path="/">
         <HomeNavigator />
       </Route>
