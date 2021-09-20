@@ -64,7 +64,7 @@ const LightBox = ({ isOpen, onClose, currentImage, onNext, onPrevious }) => {
           <LightBoxControls onLeftClick={onPrevious} onRightClick={onNext} />
         </div>
         <div ref={infoPanel} className={styles.info}>
-          <PhotoInfo image={currentImage} onClose={onClose} />
+          <PhotoInfo image={currentImage} onClose={toggleInfo} />
         </div>
       </div>
     </Modal>
