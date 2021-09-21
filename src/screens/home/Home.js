@@ -13,9 +13,22 @@ const Home = ({ window }) => {
     setMobileOpen(!mobileOpen);
   };
 
+  const onDeletePress = () => {};
+
+  const onUploadClick = () => {
+    alert("Upload Clicked");
+  };
+
+  const onSearch = () => {};
+
   return (
     <Box sx={{ flexGrow: 1, display: "flex" }}>
-      <MainHeader handleDrawerToggle={handleDrawerToggle} />
+      <MainHeader
+        handleDrawerToggle={handleDrawerToggle}
+        onDeletePress={onDeletePress}
+        onUploadClick={onUploadClick}
+        onSearch={onSearch}
+      />
       <Drawer
         container={container}
         open={mobileOpen}

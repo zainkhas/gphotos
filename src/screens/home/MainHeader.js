@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import {
   AppBar,
@@ -7,8 +7,17 @@ import {
   Typography,
   InputBase,
   Box,
+  MenuItem,
+  Menu,
+  Button,
 } from "@mui/material";
-import { Menu, Search as SearchIcon, AccountCircle } from "@mui/icons-material";
+import {
+  Menu as MenuIcon,
+  Search as SearchIcon,
+  AccountCircle,
+  Delete as DeleteIcon,
+  FileUpload as FileUploadIcon,
+} from "@mui/icons-material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,8 +67,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const MainHeader = ({ handleDrawerToggle }) => {
+const MainHeader = ({
+  handleDrawerToggle,
+  onDeletePress,
+  onUploadClick,
+  onSearch,
+}) => {
   const menuId = "primary-search-account-menu";
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const onDeleteDataClick = () => {
+    handleClose();
+    onDeletePress();
+  };
+
   //TODO Account circle and menu not showing in mobile
   return (
     <StyledAppbar position="static">
@@ -71,7 +100,7 @@ const MainHeader = ({ handleDrawerToggle }) => {
           onClick={handleDrawerToggle}
           sx={{ mr: 2, display: { sm: "none" } }}
         >
-          <Menu />
+          <MenuIcon />
         </IconButton>
         <Typography
           variant="h6"
@@ -91,6 +120,13 @@ const MainHeader = ({ handleDrawerToggle }) => {
           />
         </Search>
         <Box sx={{ flexGrow: 1 }} />
+        <Button
+          color={"grey"}
+          startIcon={<FileUploadIcon />}
+          onClick={onUploadClick}
+        >
+          Upload
+        </Button>
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <IconButton
             size="large"
@@ -99,9 +135,28 @@ const MainHeader = ({ handleDrawerToggle }) => {
             aria-controls={menuId}
             aria-haspopup="true"
             color="inherit"
+            onClick={handleMenu}
           >
             <AccountCircle />
           </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>Settings</MenuItem>
+            <MenuItem onClick={onDeleteDataClick}>Delete Data</MenuItem>
+          </Menu>
         </Box>
       </Toolbar>
     </StyledAppbar>
