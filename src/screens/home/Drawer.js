@@ -13,7 +13,7 @@ import {
 
 import { StarBorder, Photo, Search, PhotoAlbum } from "@mui/icons-material";
 
-const drawerWidth = 240;
+export const DRAWER_WIDTH = 240;
 const MENU_ITEM_TYPES = {
   MENU: 0,
   SUB_HEADER: 1,
@@ -21,11 +21,13 @@ const MENU_ITEM_TYPES = {
 
 const menu = [
   {
+    id: 0,
     type: MENU_ITEM_TYPES.MENU,
     text: "Photos",
     Icon: Photo,
   },
   {
+    id: 1,
     type: MENU_ITEM_TYPES.MENU,
     text: "Explore",
     Icon: Search,
@@ -35,25 +37,31 @@ const menu = [
     text: "Library",
   },
   {
+    id: 2,
     type: MENU_ITEM_TYPES.MENU,
     text: "Favorite",
     Icon: StarBorder,
   },
   {
+    id: 3,
     type: MENU_ITEM_TYPES.MENU,
     text: "Album",
     Icon: PhotoAlbum,
   },
 ];
 
-const drawer = (
+const DrawerMenuItems = ({ onMenuChange }) => (
   <div>
     <Toolbar />
     <Divider />
     <List>
       {menu.map((item) =>
         item.type === MENU_ITEM_TYPES.MENU ? (
-          <ListItem button key={item.text}>
+          <ListItem
+            button
+            key={item.text}
+            onClick={() => onMenuChange(item.id)}
+          >
             <ListItemIcon>
               <item.Icon />
             </ListItemIcon>
@@ -67,11 +75,11 @@ const drawer = (
   </div>
 );
 
-const Drawer = ({ container, open, handleDrawerToggle }) => {
+const Drawer = ({ container, open, handleDrawerToggle, onMenuChange }) => {
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
       aria-label="menu"
     >
       <MUIDrawer
@@ -86,11 +94,11 @@ const Drawer = ({ container, open, handleDrawerToggle }) => {
           display: { xs: "block", sm: "none" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: drawerWidth,
+            width: DRAWER_WIDTH,
           },
         }}
       >
-        {drawer}
+        <DrawerMenuItems onMenuChange={onMenuChange} />
       </MUIDrawer>
       <MUIDrawer
         variant="permanent"
@@ -98,12 +106,12 @@ const Drawer = ({ container, open, handleDrawerToggle }) => {
           display: { xs: "none", sm: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: drawerWidth,
+            width: DRAWER_WIDTH,
           },
         }}
         open
       >
-        {drawer}
+        <DrawerMenuItems onMenuChange={onMenuChange} />
       </MUIDrawer>
     </Box>
   );
