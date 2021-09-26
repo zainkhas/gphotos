@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
-import { createUseStyles } from "react-jss";
+import { makeStyles } from "@mui/styles";
 
 const LightBoxControls = ({ onLeftClick, onRightClick }) => {
   const styles = useStyles();
@@ -25,7 +25,7 @@ const LightBoxControls = ({ onLeftClick, onRightClick }) => {
   );
 };
 
-const useStyles = createUseStyles({
+const useStyles = makeStyles({
   controls: {
     position: "absolute",
     left: 0,
@@ -48,8 +48,8 @@ const useStyles = createUseStyles({
     justifyContent: "flex-end",
   },
   iconContainer: {
-    padding: 15,
-    margin: 15,
+    padding: 10,
+    margin: 30,
     backgroundColor: "rgba(66,66,66,0.54)",
     borderRadius: 50,
     display: "flex",
@@ -58,7 +58,7 @@ const useStyles = createUseStyles({
   },
   icon: {
     color: "#FFF",
-    fontSize: 20,
+    fontSize: 35,
   },
 });
 
