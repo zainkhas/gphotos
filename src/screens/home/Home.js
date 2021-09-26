@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import Drawer, { DRAWER_WIDTH } from "./Drawer";
 import MainHeader from "./MainHeader";
 import { createUseStyles } from "react-jss";
+import Photos from "../photos/Photos";
 
 const HomeContent = ({ tabIndex }) => {
+  const ref = useRef(null);
+
   const styles = useStyles();
   if (tabIndex === 0) {
-    return <div className={styles.homeContent}>Photos</div>;
+    return (
+      <div ref={ref} className={styles.homeContent}>
+        <Photos />
+      </div>
+    );
   }
   return <div className={styles.homeContent}>Empty</div>;
 };
@@ -33,7 +40,7 @@ const Home = ({ window }) => {
   const onMenuChange = (index) => setTabIndex(index);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", padding: 0 }}>
       <MainHeader
         handleDrawerToggle={handleDrawerToggle}
         onDeletePress={onDeletePress}
@@ -51,7 +58,6 @@ const Home = ({ window }) => {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
           flexDirection: "column",
         }}
       >

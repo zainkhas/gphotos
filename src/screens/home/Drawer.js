@@ -107,6 +107,7 @@ const Drawer = ({ container, open, handleDrawerToggle, onMenuChange }) => {
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             width: DRAWER_WIDTH,
+            borderRightWidth: 0,
           },
         }}
         open
