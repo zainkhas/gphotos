@@ -20,7 +20,7 @@ code {
   bottom: 0;
   background-color: #000000;
   opacity: 1;
-  z-index: 9999;
+  z-index: 1201;
 }
 
 .LightBoxOverlay {
@@ -30,5 +30,5 @@ code {
   right: 0;
   bottom: 0;
   background-color: #000000;
-  z-index: 9999;
+  z-index: 1201;
 }

@@ -1,20 +1,35 @@
 import React from "react";
-import { ArrowBack, Info } from "@mui/icons-material";
-import { createUseStyles } from "react-jss";
+import { ArrowBack, InfoOutlined } from "@mui/icons-material";
+
+import { IconButton, Toolbar } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 const LightBoxHeader = ({ onClose, toggleInfo }) => {
   const styles = useStyles();
+
   return (
-    <div className={styles.header}>
-      <ArrowBack className={styles.headerIcon} onClick={onClose} />
+    <Toolbar className={styles.toolbar}>
+      <IconButton aria-label="back" onClick={onClose}>
+        <ArrowBack className={styles.headerIcon} />
+      </IconButton>
+
       <div className={styles.headerMenu}>
-        <Info className={styles.headerIcon} onClick={toggleInfo} />
+        <IconButton aria-label="info" onClick={toggleInfo}>
+          <InfoOutlined className={styles.headerIcon} />
+        </IconButton>
       </div>
-    </div>
+    </Toolbar>
   );
 };
 
-const useStyles = createUseStyles({
+const useStyles = makeStyles({
+  toolbar: {
+    zIndex: 1200,
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+  },
   header: {
     position: "absolute",
     left: 0,
@@ -28,11 +43,11 @@ const useStyles = createUseStyles({
     paddingBottom: 20,
     height: "72px",
     alignItems: "center",
+    backgroundColor: "red",
   },
   headerIcon: {
     color: "#FFF",
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 25,
   },
   headerMenu: {
     display: "flex",

@@ -1,5 +1,4 @@
-import { colors, createTheme } from "@mui/material";
-import { red } from "@mui/material/colors";
+import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   palette: {
@@ -11,6 +10,9 @@ export const theme = createTheme({
     },
     grey: {
       main: "#5f6368",
+    },
+    lightBoxHeaderIcon: {
+      main: "#ffffff",
     },
   },
 });
