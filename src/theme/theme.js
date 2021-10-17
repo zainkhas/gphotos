@@ -8,9 +8,6 @@ export const theme = createTheme({
     secondary: {
       main: "#4d83fb",
     },
-    grey: {
-      main: "#5f6368",
-    },
     lightBoxHeaderIcon: {
       main: "#ffffff",
     },

@@ -16,8 +16,14 @@ import {
   Search as SearchIcon,
   AccountCircle,
   Delete as DeleteIcon,
+  Settings as SettingsIcon,
   FileUpload as FileUploadIcon,
 } from "@mui/icons-material";
+import { createStyles, makeStyles } from "@mui/styles";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "../../theme/theme";
+import { createUseStyles } from "react-jss";
+import { useTheme } from "@emotion/react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -75,6 +81,7 @@ const MainHeader = ({
 }) => {
   const menuId = "primary-search-account-menu";
   const [anchorEl, setAnchorEl] = useState(null);
+  const styles = useStyles();
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -121,9 +128,9 @@ const MainHeader = ({
         </Search>
         <Box sx={{ flexGrow: 1 }} />
         <Button
-          color={"grey"}
           startIcon={<FileUploadIcon />}
           onClick={onUploadClick}
+          className={styles.headerMenuIcon}
         >
           Upload
         </Button>
@@ -154,13 +161,33 @@ const MainHeader = ({
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Settings</MenuItem>
-            <MenuItem onClick={onDeleteDataClick}>Delete Data</MenuItem>
+            <MenuItem onClick={handleClose}>
+              <SettingsIcon className={styles.icon} />
+              Settings
+            </MenuItem>
+            <MenuItem onClick={onDeleteDataClick}>
+              <DeleteIcon className={styles.icon} />
+              Delete Data
+            </MenuItem>
           </Menu>
         </Box>
       </Toolbar>
     </StyledAppbar>
   );
+};
+
+const useStyles = () => {
+  const theme = useTheme();
+  console.log("Theme is: ", theme);
+  return createUseStyles({
+    icon: {
+      color: theme.palette.grey["700"],
+      paddingRight: 10,
+    },
+    headerMenuIcon: {
+      color: theme.palette.grey["700"],
+    },
+  })();
 };
 
 export default MainHeader;
