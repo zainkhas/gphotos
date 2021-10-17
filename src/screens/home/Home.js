@@ -5,11 +5,12 @@ import MainHeader from "./MainHeader";
 import { createUseStyles } from "react-jss";
 import Photos from "../photos/Photos";
 import { useHistory } from "react-router-dom";
+import DeleteConfirmDialog from "./DeleteConfirmDialog";
 
 const HomeContent = ({ tabIndex }) => {
   const ref = useRef(null);
-
   const styles = useStyles();
+
   if (tabIndex === 0) {
     return (
       <div ref={ref} className={styles.homeContent}>
@@ -23,6 +24,7 @@ const HomeContent = ({ tabIndex }) => {
 const Home = ({ window }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
+  const [openDeleteConfirmDialog, setOpenDeleteConfirmDialog] = useState(false);
   const history = useHistory();
 
   const container =
@@ -32,7 +34,13 @@ const Home = ({ window }) => {
     setMobileOpen(!mobileOpen);
   };
 
-  const onDeletePress = () => {};
+  const onDeletePress = () => setOpenDeleteConfirmDialog(true);
+
+  const closeDeleteDialog = () => setOpenDeleteConfirmDialog(false);
+
+  const onDeleteConfirm = () => {
+    alert("Deleted!");
+  };
 
   const onUploadClick = () => history.push("/upload");
 
@@ -47,7 +55,6 @@ const Home = ({ window }) => {
         onUploadClick={onUploadClick}
         onSearch={onSearch}
       />
-
       <Drawer
         container={container}
         open={mobileOpen}
@@ -62,6 +69,11 @@ const Home = ({ window }) => {
         }}
       >
         <HomeContent tabIndex={tabIndex} />
+        <DeleteConfirmDialog
+          open={openDeleteConfirmDialog}
+          onClose={closeDeleteDialog}
+          onConfirm={onDeleteConfirm}
+        />
       </Box>
     </Box>
   );

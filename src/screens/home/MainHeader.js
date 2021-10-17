@@ -19,11 +19,8 @@ import {
   Settings as SettingsIcon,
   FileUpload as FileUploadIcon,
 } from "@mui/icons-material";
-import { createStyles, makeStyles } from "@mui/styles";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../../theme/theme";
-import { createUseStyles } from "react-jss";
-import { useTheme } from "@emotion/react";
+
+import useThemeStyles from "../../hooks/useThemeStyles";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -176,10 +173,8 @@ const MainHeader = ({
   );
 };
 
-const useStyles = () => {
-  const theme = useTheme();
-  console.log("Theme is: ", theme);
-  return createUseStyles({
+const useStyles = () =>
+  useThemeStyles((theme) => ({
     icon: {
       color: theme.palette.grey["700"],
       paddingRight: 10,
@@ -187,7 +182,6 @@ const useStyles = () => {
     headerMenuIcon: {
       color: theme.palette.grey["700"],
     },
-  })();
-};
+  }));
 
 export default MainHeader;
