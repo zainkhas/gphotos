@@ -1,9 +1,10 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Box } from "@mui/material";
 import Drawer, { DRAWER_WIDTH } from "./Drawer";
 import MainHeader from "./MainHeader";
 import { createUseStyles } from "react-jss";
 import Photos from "../photos/Photos";
+import { useHistory } from "react-router-dom";
 
 const HomeContent = ({ tabIndex }) => {
   const ref = useRef(null);
@@ -22,6 +23,7 @@ const HomeContent = ({ tabIndex }) => {
 const Home = ({ window }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
+  const history = useHistory();
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -32,9 +34,7 @@ const Home = ({ window }) => {
 
   const onDeletePress = () => {};
 
-  const onUploadClick = () => {
-    alert("Upload Clicked");
-  };
+  const onUploadClick = () => history.push("/upload");
 
   const onSearch = () => {};
   const onMenuChange = (index) => setTabIndex(index);

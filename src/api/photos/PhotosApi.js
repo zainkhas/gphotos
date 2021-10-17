@@ -1,14 +1,9 @@
 import { URL_API } from "../../config";
-import { post } from "../HttpClient";
+import { post, upload } from "../HttpClient";
 
 const getAllPhotos = async () => {
   let url = URL_API + "/photos";
   return post(url);
-};
-
-const getPhotosUploadUrl = () => {
-  let url = URL_API + "/photos/upload";
-  return url;
 };
 
 const deleteAll = () => {
@@ -16,9 +11,14 @@ const deleteAll = () => {
   return post(url);
 };
 
+const uploadPhotos = (files, onProgress) => {
+  let url = URL_API + "/photos/upload";
+  return upload(url, null, "photos", files, onProgress);
+};
+
 const photosApi = {
   getAllPhotos,
-  getPhotosUploadUrl,
+  uploadPhotos,
   deleteAll,
 };
 export default photosApi;
