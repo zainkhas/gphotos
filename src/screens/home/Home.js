@@ -1,11 +1,14 @@
 import React, { useRef, useState } from "react";
-import { Box } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 import Drawer, { DRAWER_WIDTH } from "./Drawer";
 import MainHeader from "./MainHeader";
 import { createUseStyles } from "react-jss";
 import Photos from "../photos/Photos";
 import { useHistory } from "react-router-dom";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
+import useApi from "../../hooks/useApi";
+import { log } from "../../common/Common";
+import useSnackBar from "../../hooks/useSnackBar";
 
 const HomeContent = ({ tabIndex }) => {
   const ref = useRef(null);
@@ -26,6 +29,10 @@ const Home = ({ window }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const [openDeleteConfirmDialog, setOpenDeleteConfirmDialog] = useState(false);
   const history = useHistory();
+  const [deleting, setDeleting] = useState(false);
+  const { SnackBarAlert, snackBarSuccess, snackBarError } = useSnackBar();
+
+  const { deleteAll } = useApi();
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -38,8 +45,20 @@ const Home = ({ window }) => {
 
   const closeDeleteDialog = () => setOpenDeleteConfirmDialog(false);
 
-  const onDeleteConfirm = () => {
-    alert("Deleted!");
+  const onDeleteConfirm = async () => {
+    setDeleting(true);
+    try {
+      let res = await deleteAll();
+      log("deleteAll response: ", res);
+      setDeleting(false);
+      closeDeleteDialog();
+      snackBarSuccess("All data deleted!");
+    } catch (error) {
+      log("Error deleteAll: ", error);
+      setDeleting(false);
+      closeDeleteDialog();
+      snackBarError("Oops! Could not delete the data!");
+    }
   };
 
   const onUploadClick = () => history.push("/upload");
@@ -74,6 +93,7 @@ const Home = ({ window }) => {
           onClose={closeDeleteDialog}
           onConfirm={onDeleteConfirm}
         />
+        <SnackBarAlert />
       </Box>
     </Box>
   );
