@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { styled, alpha } from "@mui/material/styles";
+import { styled, alpha, ThemeProvider } from "@mui/material/styles";
 import {
   AppBar,
   Toolbar,
@@ -21,6 +21,7 @@ import {
 } from "@mui/icons-material";
 
 import useThemeStyles from "../../hooks/useThemeStyles";
+import { theme } from "../../theme/white_header_theme";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,12 +49,6 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-}));
-
-const StyledAppbar = styled(AppBar)(() => ({
-  boxShadow: "none",
-  border: "1px solid #d8d8d8",
-  zIndex: 1201,
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -95,81 +90,83 @@ const MainHeader = ({
 
   //TODO Account circle and menu not showing in mobile
   return (
-    <StyledAppbar position="static">
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ mr: 2, display: { sm: "none" } }}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ display: { xs: "none", sm: "block" } }}
-        >
-          Photos
-        </Typography>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
-        <Box sx={{ flexGrow: 1 }} />
-        <Button
-          startIcon={<FileUploadIcon />}
-          onClick={onUploadClick}
-          className={styles.headerMenuIcon}
-        >
-          Upload
-        </Button>
-        <Box sx={{ display: { xs: "none", md: "flex" } }}>
+    <ThemeProvider theme={theme}>
+      <AppBar position="static" className={styles.appBar}>
+        <Toolbar>
           <IconButton
-            size="large"
-            edge="end"
-            aria-label="account of current user"
-            aria-controls={menuId}
-            aria-haspopup="true"
             color="inherit"
-            onClick={handleMenu}
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <AccountCircle />
+            <MenuIcon />
           </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
-            <MenuItem onClick={handleClose}>
-              <SettingsIcon className={styles.icon} />
-              Settings
-            </MenuItem>
-            <MenuItem onClick={onDeleteDataClick}>
-              <DeleteIcon className={styles.icon} />
-              Delete Data
-            </MenuItem>
-          </Menu>
-        </Box>
-      </Toolbar>
-    </StyledAppbar>
+            Photos
+          </Typography>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+          <Box sx={{ flexGrow: 1 }} />
+          <Button
+            startIcon={<FileUploadIcon />}
+            onClick={onUploadClick}
+            className={styles.headerMenuIcon}
+          >
+            Upload
+          </Button>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              color="inherit"
+              onClick={handleMenu}
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>
+                <SettingsIcon className={styles.icon} />
+                Settings
+              </MenuItem>
+              <MenuItem onClick={onDeleteDataClick}>
+                <DeleteIcon className={styles.icon} />
+                Delete Data
+              </MenuItem>
+            </Menu>
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </ThemeProvider>
   );
 };
 
@@ -181,6 +178,11 @@ const useStyles = () =>
     },
     headerMenuIcon: {
       color: theme.palette.grey["700"],
+    },
+    appBar: {
+      boxShadow: "none",
+      border: "1px solid #d8d8d8",
+      zIndex: 1201,
     },
   }));
 

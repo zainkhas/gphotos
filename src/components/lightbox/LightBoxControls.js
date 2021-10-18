@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
+import { createUseStyles } from "react-jss";
 
 const LightBoxControls = ({ onLeftClick, onRightClick }) => {
   const styles = useStyles();
@@ -25,7 +25,7 @@ const LightBoxControls = ({ onLeftClick, onRightClick }) => {
   );
 };
 
-const useStyles = makeStyles({
+const useStyles = createUseStyles({
   controls: {
     position: "absolute",
     left: 0,

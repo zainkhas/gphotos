@@ -28,7 +28,6 @@ const InfoItem = ({ title, text, Icon }) => {
 };
 
 const PhotoInfo = ({ image, onClose }) => {
-  console.log("image: ", image);
   const styles = useStyles();
   const [data, setData] = useState();
 

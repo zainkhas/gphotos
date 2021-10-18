@@ -1,8 +1,15 @@
 import React from "react";
-import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  ThemeProvider,
+} from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
 import { useHistory } from "react-router-dom";
+import { theme } from "../theme/white_header_theme";
+import { createUseStyles } from "react-jss";
 
 const Header = ({ title, onBack }) => {
   const history = useHistory();
@@ -13,20 +20,22 @@ const Header = ({ title, onBack }) => {
   };
 
   return (
-    <AppBar position="relative" className={styles.appbar}>
-      <Toolbar>
-        <IconButton aria-label="back" onClick={onBack ? onBack : onBackClick}>
-          <ArrowBack className={styles.headerIcon} />
-        </IconButton>
-        <Typography variant="h6" noWrap component="div">
-          {title}
-        </Typography>
-      </Toolbar>
-    </AppBar>
+    <ThemeProvider theme={theme}>
+      <AppBar position="relative" className={styles.appbar}>
+        <Toolbar>
+          <IconButton aria-label="back" onClick={onBack ? onBack : onBackClick}>
+            <ArrowBack className={styles.headerIcon} />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            {title}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </ThemeProvider>
   );
 };
 
-const useStyles = makeStyles({
+const useStyles = createUseStyles({
   headerIcon: {
     fontSize: 25,
   },

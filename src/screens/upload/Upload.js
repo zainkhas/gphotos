@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Screen from "../../components/Screen";
 import { DropzoneArea } from "material-ui-dropzone";
-import { makeStyles } from "@material-ui/core/styles";
-import { Stack, Card, CardMedia, Typography, CardContent } from "@mui/material";
+
+import { Stack, Card, CardMedia, CardContent } from "@mui/material";
 import useApi from "../../hooks/useApi";
 import { log } from "../../common/Common";
+import { createUseStyles } from "react-jss";
 
 const Upload = () => {
   const [files, setFiles] = useState([]);
@@ -55,7 +56,7 @@ const Upload = () => {
   );
 };
 
-const useStyles = makeStyles({
+const useStyles = createUseStyles({
   image: {
     width: 200,
     height: 100,

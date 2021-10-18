@@ -2,7 +2,7 @@ import React from "react";
 import { ArrowBack, InfoOutlined } from "@mui/icons-material";
 
 import { IconButton, Toolbar } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { createUseStyles } from "react-jss";
 
 const LightBoxHeader = ({ onClose, toggleInfo }) => {
   const styles = useStyles();
@@ -22,7 +22,7 @@ const LightBoxHeader = ({ onClose, toggleInfo }) => {
   );
 };
 
-const useStyles = makeStyles({
+const useStyles = createUseStyles({
   toolbar: {
     zIndex: 1200,
     position: "absolute",
