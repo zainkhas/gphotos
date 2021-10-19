@@ -43,7 +43,11 @@ const Home = ({ window }) => {
 
   const onDeletePress = () => setOpenDeleteConfirmDialog(true);
 
-  const closeDeleteDialog = () => setOpenDeleteConfirmDialog(false);
+  const closeDeleteDialog = (event, reason) => {
+    if (reason !== "backdropClick") {
+      setOpenDeleteConfirmDialog(false);
+    }
+  };
 
   const onDeleteConfirm = async () => {
     setDeleting(true);

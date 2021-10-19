@@ -12,7 +12,7 @@ import { LoadingButton } from "@mui/lab";
 const DeleteConfirmDialog = ({ open, onClose, onConfirm, loading }) => {
   const styles = useStyles();
   return (
-    <Dialog onClose={onClose} open={open}>
+    <Dialog onClose={onClose} open={open} disableEscapeKeyDown>
       <DialogTitle>Delete All Photos?</DialogTitle>
       <DialogContent>
         Are you sure you want to delete all Photos and their data?
