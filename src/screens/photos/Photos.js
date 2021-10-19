@@ -35,8 +35,6 @@ const Photos = () => {
   const getPhotos = async () => {
     try {
       let res = await getAllPhotos();
-
-      log("Photos: ", res);
       dispatch(updatePhotos(transformData(res)));
     } catch (error) {
       log("Error getPhotos: ", error);

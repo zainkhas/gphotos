@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Screen from "../../components/Screen";
-import { DropzoneArea } from "material-ui-dropzone";
 
 import { Stack, Card, CardMedia } from "@mui/material";
 import useApi from "../../hooks/useApi";
 import { log } from "../../common/Common";
 import { createUseStyles } from "react-jss";
+import Uploader from "../../components/uploader/Uploader";
 
 const Upload = () => {
   const [files, setFiles] = useState([]);
@@ -31,7 +31,7 @@ const Upload = () => {
 
   return (
     <Screen title={"Upload"}>
-      <DropzoneArea
+      {/* <DropzoneArea
         onChange={onChange}
         filesLimit={100}
         acceptedFiles={["image/*", "video/*"]}
@@ -41,7 +41,7 @@ const Upload = () => {
       />
       <Stack direction="row" spacing={2} className={styles.stack}>
         {files.map((file) => (
-          <Card className={styles.card}>
+          <Card key={file.name} className={styles.card}>
             <CardMedia
               component="img"
               className={styles.image}
@@ -50,7 +50,13 @@ const Upload = () => {
             />
           </Card>
         ))}
-      </Stack>
+      </Stack> */}
+
+      <Uploader
+        onDrop={(files) => {
+          console.log(files);
+        }}
+      />
     </Screen>
   );
 };
