@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Alert, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import Drawer, { DRAWER_WIDTH } from "./Drawer";
 import MainHeader from "./MainHeader";
 import { createUseStyles } from "react-jss";

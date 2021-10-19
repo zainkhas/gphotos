@@ -68,7 +68,7 @@ const DrawerMenuItems = ({ onMenuChange }) => (
             <ListItemText primary={item.text} />
           </ListItem>
         ) : (
-          <ListSubheader>{item.text}</ListSubheader>
+          <ListSubheader key={item.text}>{item.text}</ListSubheader>
         )
       )}
     </List>

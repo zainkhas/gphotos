@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Screen from "../../components/Screen";
 import { DropzoneArea } from "material-ui-dropzone";
 
-import { Stack, Card, CardMedia, CardContent } from "@mui/material";
+import { Stack, Card, CardMedia } from "@mui/material";
 import useApi from "../../hooks/useApi";
 import { log } from "../../common/Common";
 import { createUseStyles } from "react-jss";
@@ -48,7 +48,6 @@ const Upload = () => {
               image={URL.createObjectURL(file)}
               alt="preview"
             />
-            <CardContent></CardContent>
           </Card>
         ))}
       </Stack>
