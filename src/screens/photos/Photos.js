@@ -6,13 +6,17 @@ import { URL_DATA } from "../../config";
 
 import { createUseStyles } from "react-jss";
 import Lightbox from "../../components/lightbox/LightBox";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePhotos } from "../../store/photosReducer";
 
 const Photos = () => {
   const [photos, setPhotos] = useState([]);
+  const photosList = useSelector((state) => state.photos.photos);
   const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const { getAllPhotos } = useApi();
   const styles = useStyles();
+  const dispatch = useDispatch();
 
   const transformData = (data) => {
     let finalArr = data?.map((img) => ({
@@ -33,11 +37,15 @@ const Photos = () => {
       let res = await getAllPhotos();
 
       log("Photos: ", res);
-      setPhotos(transformData(res));
+      dispatch(updatePhotos(transformData(res)));
     } catch (error) {
       log("Error getPhotos: ", error);
     }
   };
+
+  useEffect(() => {
+    setPhotos(JSON.parse(JSON.stringify(photosList)));
+  }, [photosList]);
 
   const onClickThumbnail = (index) => {
     setPhotoIndex(index);

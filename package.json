@@ -13,6 +13,7 @@
     "@mui/lab": "^5.0.0-alpha.51",
     "@mui/material": "^5.0.0",
     "@mui/styles": "^5.0.1",
+    "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -26,6 +27,7 @@
     "react-image-lightbox": "^5.1.4",
     "react-jss": "^10.7.1",
     "react-modal": "^3.14.3",
+    "react-redux": "^7.2.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"

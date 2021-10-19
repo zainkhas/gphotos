@@ -9,6 +9,8 @@ import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import useApi from "../../hooks/useApi";
 import { log } from "../../common/Common";
 import useSnackBar from "../../hooks/useSnackBar";
+import { useDispatch } from "react-redux";
+import { updatePhotos } from "../../store/photosReducer";
 
 const HomeContent = ({ tabIndex }) => {
   const ref = useRef(null);
@@ -31,6 +33,7 @@ const Home = ({ window }) => {
   const history = useHistory();
   const [deleting, setDeleting] = useState(false);
   const { SnackBarAlert, snackBarSuccess, snackBarError } = useSnackBar();
+  const dispatch = useDispatch();
 
   const { deleteAll } = useApi();
 
@@ -56,6 +59,7 @@ const Home = ({ window }) => {
       log("deleteAll response: ", res);
       setDeleting(false);
       closeDeleteDialog();
+      dispatch(updatePhotos([]));
       snackBarSuccess("All data deleted!");
     } catch (error) {
       log("Error deleteAll: ", error);
