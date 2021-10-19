@@ -7,8 +7,9 @@ import {
   Button,
 } from "@mui/material";
 import useThemeStyles from "../../hooks/useThemeStyles";
+import { LoadingButton } from "@mui/lab";
 
-const DeleteConfirmDialog = ({ open, onClose, onConfirm }) => {
+const DeleteConfirmDialog = ({ open, onClose, onConfirm, loading }) => {
   const styles = useStyles();
   return (
     <Dialog onClose={onClose} open={open}>
@@ -20,9 +21,13 @@ const DeleteConfirmDialog = ({ open, onClose, onConfirm }) => {
         <Button autoFocus onClick={onClose}>
           Cancel
         </Button>
-        <Button onClick={onConfirm} className={styles.confirmButton}>
+        <LoadingButton
+          loading={loading}
+          onClick={onConfirm}
+          className={styles.confirmButton}
+        >
           Yes, I'm sure
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

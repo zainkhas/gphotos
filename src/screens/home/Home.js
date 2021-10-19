@@ -92,6 +92,7 @@ const Home = ({ window }) => {
           open={openDeleteConfirmDialog}
           onClose={closeDeleteDialog}
           onConfirm={onDeleteConfirm}
+          loading={deleting}
         />
         <SnackBarAlert />
       </Box>
