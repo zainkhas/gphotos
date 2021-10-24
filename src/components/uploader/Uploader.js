@@ -3,8 +3,9 @@ import useFiles from "../../hooks/useFiles";
 import Lottie from "react-lottie";
 import { Typography } from "@mui/material";
 import useThemeStyles from "../../hooks/useThemeStyles";
+import UploadThumbnail from "./UploadThumbnail";
 
-const Uploader = ({ onDrop, maxFiles = 100 }) => {
+const Uploader = ({ onDrop, maxFiles = 100, progress }) => {
   const [over, setover] = useState(false);
   const [files, setfiles] = useFiles({ maxFiles });
   const $input = useRef(null);
@@ -82,14 +83,7 @@ const Uploader = ({ onDrop, maxFiles = 100 }) => {
       </div>
       <div className={styles.images}>
         {files.map((file) => (
-          <div className={styles.imageContainer}>
-            <img
-              key={file.name + "file"}
-              src={file.preview}
-              alt={file.name}
-              className={styles.image}
-            />
-          </div>
+          <UploadThumbnail file={file} progress={progress} />
         ))}
       </div>
     </>
@@ -127,18 +121,7 @@ const useStyles = () =>
     images: {
       display: "flex",
       flexWrap: "wrap",
-    },
-    imageContainer: {
-      width: 200,
-      height: 250,
-      overflow: "hidden",
-      marginLeft: 10,
-      marginBottom: 10,
-    },
-    image: {
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
+      marginTop: 20,
     },
   }));
 
