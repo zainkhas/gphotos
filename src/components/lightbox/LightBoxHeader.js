@@ -1,11 +1,23 @@
-import React from "react";
-import { ArrowBack, InfoOutlined } from "@mui/icons-material";
-
-import { IconButton, Toolbar } from "@mui/material";
+import React, { useState } from "react";
+import {
+  ArrowBack,
+  InfoOutlined,
+  DeleteOutlined as DeleteIcon,
+} from "@mui/icons-material";
+import { IconButton, Toolbar, Tooltip } from "@mui/material";
 import { createUseStyles } from "react-jss";
 
-const LightBoxHeader = ({ onClose, toggleInfo }) => {
+import DeletePopper from "../DeletePopper";
+
+const LightBoxHeader = ({ onClose, toggleInfo, onDelete }) => {
   const styles = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    setOpen((previousOpen) => !previousOpen);
+  };
 
   return (
     <Toolbar className={styles.toolbar}>
@@ -14,9 +26,17 @@ const LightBoxHeader = ({ onClose, toggleInfo }) => {
       </IconButton>
 
       <div className={styles.headerMenu}>
-        <IconButton aria-label="info" onClick={toggleInfo}>
-          <InfoOutlined className={styles.headerIcon} />
-        </IconButton>
+        <Tooltip title="Info">
+          <IconButton aria-label="info" onClick={toggleInfo}>
+            <InfoOutlined className={styles.headerIcon} />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <IconButton aria-label="delete" onClick={handleClick}>
+            <DeleteIcon className={styles.headerIcon} />
+          </IconButton>
+        </Tooltip>
+        <DeletePopper open={open} anchorEl={anchorEl} />
       </div>
     </Toolbar>
   );

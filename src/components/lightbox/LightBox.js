@@ -42,6 +42,8 @@ const LightBox = ({ isOpen, onClose, currentImage, onNext, onPrevious }) => {
     mainDiv.current.focus();
   };
 
+  const onDelete = () => {};
+
   return (
     <Modal
       isOpen={isOpen}
@@ -57,7 +59,11 @@ const LightBox = ({ isOpen, onClose, currentImage, onNext, onPrevious }) => {
         onKeyDown={onKeyDown}
       >
         <div ref={viewPort} className={styles.viewPort}>
-          <LightBoxHeader onClose={onClose} toggleInfo={toggleInfo} />
+          <LightBoxHeader
+            onClose={onClose}
+            toggleInfo={toggleInfo}
+            onDelete={onDelete}
+          />
           <div className={styles.imageContainer}>
             <img src={currentImage.src} alt="Main" className={styles.image} />
           </div>
