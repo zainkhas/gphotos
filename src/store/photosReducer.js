@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   photos: [],
+  trashed: [],
 };
 
 export const counterSlice = createSlice({
@@ -11,9 +12,16 @@ export const counterSlice = createSlice({
     updatePhotos: (state, action) => {
       state.photos = action.payload;
     },
+    trash: (state, action) => {
+      state.trashed = [...state.trashed, state.photos[action.payload]];
+      state.photos = [
+        ...state.photos.slice(0, action.payload),
+        ...state.photos.slice(action.payload + 1),
+      ];
+    },
   },
 });
 
-export const { updatePhotos } = counterSlice.actions;
+export const { updatePhotos, trash } = counterSlice.actions;
 
 export default counterSlice.reducer;

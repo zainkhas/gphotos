@@ -11,6 +11,8 @@ import {
 import { useSpring, animated } from "react-spring/web.cjs";
 import { createUseStyles } from "react-jss";
 
+import { log } from "../common/Common";
+
 const Fade = React.forwardRef(function Fade(props, ref) {
   const { in: open, children, onEnter, onExited, ...other } = props;
   const style = useSpring({
@@ -35,7 +37,7 @@ const Fade = React.forwardRef(function Fade(props, ref) {
   );
 });
 
-const DeletePopper = ({ open, anchorEl }) => {
+const DeletePopper = ({ open, anchorEl, onCancelClick, onTrashClick }) => {
   const canBeOpen = open && Boolean(anchorEl);
   const id = canBeOpen ? "spring-popper" : undefined;
   const styles = useStyles();
@@ -64,8 +66,12 @@ const DeletePopper = ({ open, anchorEl }) => {
                 spacing={2}
                 className={styles.buttonsStack}
               >
-                <Button variant="text">Cancel</Button>
-                <Button variant="contained">Move to Trash</Button>
+                <Button variant="text" onClick={onCancelClick}>
+                  Cancel
+                </Button>
+                <Button variant="contained" onClick={onTrashClick}>
+                  Move to Trash
+                </Button>
               </Stack>
             </CardContent>
           </Card>

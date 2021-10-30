@@ -1,45 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { log } from "../../common/Common";
-import useApi from "../../hooks/useApi";
 import Gallery from "react-grid-gallery";
-import { URL_DATA } from "../../config";
-
 import { createUseStyles } from "react-jss";
 import Lightbox from "../../components/lightbox/LightBox";
-import { useDispatch, useSelector } from "react-redux";
-import { updatePhotos } from "../../store/photosReducer";
+import { useSelector } from "react-redux";
+import usePhotos from "../../hooks/usePhotos";
 
 const Photos = () => {
   const [photos, setPhotos] = useState([]);
   const photosList = useSelector((state) => state.photos.photos);
   const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
-  const { getAllPhotos } = useApi();
+  const { getPhotos } = usePhotos();
   const styles = useStyles();
-  const dispatch = useDispatch();
-
-  const transformData = (data) => {
-    let finalArr = data?.map((img) => ({
-      src: URL_DATA + "/public/uploads/" + img.name,
-      thumbnail: URL_DATA + "/public/thumb/thumb_" + img.name,
-      thumbnailWidth: 250,
-      thumbnailHeight: 250,
-      metaData: img?.metaData != "" ? JSON.parse(img.metaData) : null,
-      ...img,
-    }));
-
-    log("Transformed: ", finalArr);
-    return finalArr;
-  };
-
-  const getPhotos = async () => {
-    try {
-      let res = await getAllPhotos();
-      dispatch(updatePhotos(transformData(res)));
-    } catch (error) {
-      log("Error getPhotos: ", error);
-    }
-  };
 
   useEffect(() => {
     setPhotos(JSON.parse(JSON.stringify(photosList)));
@@ -84,6 +56,7 @@ const Photos = () => {
         prevSrc={photos[(photoIndex + photos.length - 1) % photos.length].src}
         onPrevious={onPrevious}
         onNext={onNext}
+        index={photoIndex}
       />
     </div>
   );

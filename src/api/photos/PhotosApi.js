@@ -16,9 +16,15 @@ const uploadPhotos = (files, onProgress) => {
   return upload(url, null, "photos", files, onProgress);
 };
 
+const trashPhoto = (ids) => {
+  let url = URL_API + "/photos/trash";
+  return post(url, { ids });
+};
+
 const photosApi = {
   getAllPhotos,
   uploadPhotos,
   deleteAll,
+  trashPhoto,
 };
 export default photosApi;

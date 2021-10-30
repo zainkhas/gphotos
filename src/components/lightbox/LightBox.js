@@ -5,12 +5,22 @@ import LightBoxControls from "./LightBoxControls";
 import LightBoxHeader from "./LightBoxHeader";
 import PhotoInfo from "./PhotoInfo";
 
-const LightBox = ({ isOpen, onClose, currentImage, onNext, onPrevious }) => {
+import usePhotos from "../../hooks/usePhotos";
+
+const LightBox = ({
+  isOpen,
+  onClose,
+  currentImage,
+  onNext,
+  onPrevious,
+  index,
+}) => {
   const styles = useStyles();
   const [infoOpen, setInfoOpen] = useState(false);
   const infoPanel = useRef(null);
   const viewPort = useRef(null);
   const mainDiv = useRef(null);
+  const { trashPhoto } = usePhotos();
 
   const toggleInfo = () => {
     if (infoOpen) {
@@ -42,7 +52,9 @@ const LightBox = ({ isOpen, onClose, currentImage, onNext, onPrevious }) => {
     mainDiv.current.focus();
   };
 
-  const onDelete = () => {};
+  const onDelete = async () => {
+    trashPhoto(currentImage?._id, index);
+  };
 
   return (
     <Modal

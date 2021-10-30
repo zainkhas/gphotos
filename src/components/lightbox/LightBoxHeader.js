@@ -19,6 +19,13 @@ const LightBoxHeader = ({ onClose, toggleInfo, onDelete }) => {
     setOpen((previousOpen) => !previousOpen);
   };
 
+  const onCancelTrashClick = () => setOpen(false);
+  const onTrashClick = () => {
+    setOpen(false);
+    onDelete();
+    onClose();
+  };
+
   return (
     <Toolbar className={styles.toolbar}>
       <IconButton aria-label="back" onClick={onClose}>
@@ -36,7 +43,12 @@ const LightBoxHeader = ({ onClose, toggleInfo, onDelete }) => {
             <DeleteIcon className={styles.headerIcon} />
           </IconButton>
         </Tooltip>
-        <DeletePopper open={open} anchorEl={anchorEl} />
+        <DeletePopper
+          open={open}
+          anchorEl={anchorEl}
+          onCancelClick={onCancelTrashClick}
+          onTrashClick={onTrashClick}
+        />
       </div>
     </Toolbar>
   );
