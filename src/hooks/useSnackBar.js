@@ -1,12 +1,13 @@
 import { Snackbar, Alert as MuiAlert } from "@mui/material";
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { SNACKBAR_TYPES } from "../constants/SNACKBAR_TYPES";
+import { updateSnackBar } from "../store/appReducer";
 
 const useSnackBar = () => {
-  const [snackBar, setSnackBar] = useState({
-    open: false,
-    text: "",
-    type: "info",
-  });
+  const dispatch = useDispatch();
+  const snackBar = useSelector((state) => state.app.snackBar);
+  const setSnackBar = (objSnackBar) => dispatch(updateSnackBar(objSnackBar));
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -15,7 +16,7 @@ const useSnackBar = () => {
     setSnackBar({
       open: false,
       text: "",
-      type: "info",
+      type: SNACKBAR_TYPES.INFO,
     });
   };
 
@@ -39,44 +40,24 @@ const useSnackBar = () => {
     </Snackbar>
   );
 
-  const snackBarSuccess = (text) => {
+  const openSnackBar = (text, type) => {
     setSnackBar({
       open: true,
       text,
-      type: "success",
+      type,
     });
   };
 
-  const snackBarError = (text) => {
-    setSnackBar({
-      open: true,
-      text,
-      type: "error",
-    });
-  };
-
-  const snackBarWarning = (text) => {
-    setSnackBar({
-      open: true,
-      text,
-      type: "warning",
-    });
-  };
-
-  const snackBarInfo = (text) => {
-    setSnackBar({
-      open: true,
-      text,
-      type: "info",
-    });
+  const SnackBar = {
+    info: (text) => openSnackBar(text, SNACKBAR_TYPES.INFO),
+    success: (text) => openSnackBar(text, SNACKBAR_TYPES.SUCCESS),
+    warning: (text) => openSnackBar(text, SNACKBAR_TYPES.WARNING),
+    error: (text) => openSnackBar(text, SNACKBAR_TYPES.ERROR),
   };
 
   return {
     SnackBarAlert,
-    snackBarSuccess,
-    snackBarError,
-    snackBarWarning,
-    snackBarInfo,
+    SnackBar,
   };
 };
 

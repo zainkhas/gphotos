@@ -32,7 +32,7 @@ const Home = ({ window }) => {
   const [openDeleteConfirmDialog, setOpenDeleteConfirmDialog] = useState(false);
   const history = useHistory();
   const [deleting, setDeleting] = useState(false);
-  const { SnackBarAlert, snackBarSuccess, snackBarError } = useSnackBar();
+  const { SnackBar } = useSnackBar();
   const dispatch = useDispatch();
 
   const { deleteAll } = useApi();
@@ -60,12 +60,12 @@ const Home = ({ window }) => {
       setDeleting(false);
       closeDeleteDialog();
       dispatch(updatePhotos([]));
-      snackBarSuccess("All data deleted!");
+      SnackBar.success("All data deleted!");
     } catch (error) {
       log("Error deleteAll: ", error);
       setDeleting(false);
       closeDeleteDialog();
-      snackBarError("Oops! Could not delete the data!");
+      SnackBar.error("Oops! Could not delete the data!");
     }
   };
 
@@ -102,7 +102,6 @@ const Home = ({ window }) => {
           onConfirm={onDeleteConfirm}
           loading={deleting}
         />
-        <SnackBarAlert />
       </Box>
     </Box>
   );

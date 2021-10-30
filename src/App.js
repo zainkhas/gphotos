@@ -4,8 +4,10 @@ import HomeNavigator from "./navigation/HomeNavigator";
 import { Helmet } from "react-helmet";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./theme/theme";
+import useSnackBar from "./hooks/useSnackBar";
 
 function App() {
+  const { SnackBarAlert } = useSnackBar();
   return (
     <Router>
       <Helmet>
@@ -15,6 +17,7 @@ function App() {
         <Route exact path="/">
           <HomeNavigator />
         </Route>
+        <SnackBarAlert />
       </ThemeProvider>
     </Router>
   );
