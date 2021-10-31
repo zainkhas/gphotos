@@ -11,15 +11,23 @@ import { log } from "../../common/Common";
 import useSnackBar from "../../hooks/useSnackBar";
 import { useDispatch } from "react-redux";
 import { updatePhotos } from "../../store/photosReducer";
+import { DRAWER_TABS } from "./DRAWER_TABS";
+import Trash from "../trash/Trash";
 
 const HomeContent = ({ tabIndex }) => {
   const ref = useRef(null);
   const styles = useStyles();
 
-  if (tabIndex === 0) {
+  if (tabIndex === DRAWER_TABS.PHOTOS) {
     return (
       <div ref={ref} className={styles.homeContent}>
         <Photos />
+      </div>
+    );
+  } else if (tabIndex === DRAWER_TABS.TRASH) {
+    return (
+      <div ref={ref} className={styles.homeContent}>
+        <Trash />
       </div>
     );
   }
@@ -75,7 +83,15 @@ const Home = ({ window }) => {
   const onMenuChange = (index) => setTabIndex(index);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", padding: 0 }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        padding: 0,
+        flex: 1,
+        minHeight: "100vh",
+      }}
+    >
       <MainHeader
         handleDrawerToggle={handleDrawerToggle}
         onDeletePress={onDeletePress}

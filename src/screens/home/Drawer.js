@@ -11,7 +11,14 @@ import {
   ListSubheader,
 } from "@mui/material";
 
-import { StarBorder, Photo, Search, PhotoAlbum } from "@mui/icons-material";
+import {
+  StarBorder,
+  Photo,
+  Search,
+  PhotoAlbum,
+  Delete,
+} from "@mui/icons-material";
+import { DRAWER_TABS } from "./DRAWER_TABS";
 
 export const DRAWER_WIDTH = 240;
 const MENU_ITEM_TYPES = {
@@ -21,13 +28,13 @@ const MENU_ITEM_TYPES = {
 
 const menu = [
   {
-    id: 0,
+    id: DRAWER_TABS.PHOTOS,
     type: MENU_ITEM_TYPES.MENU,
     text: "Photos",
     Icon: Photo,
   },
   {
-    id: 1,
+    id: DRAWER_TABS.EXPLORER,
     type: MENU_ITEM_TYPES.MENU,
     text: "Explore",
     Icon: Search,
@@ -37,16 +44,22 @@ const menu = [
     text: "Library",
   },
   {
-    id: 2,
+    id: DRAWER_TABS.FAVORITES,
     type: MENU_ITEM_TYPES.MENU,
     text: "Favorite",
     Icon: StarBorder,
   },
   {
-    id: 3,
+    id: DRAWER_TABS.ALBUM,
     type: MENU_ITEM_TYPES.MENU,
     text: "Album",
     Icon: PhotoAlbum,
+  },
+  {
+    id: DRAWER_TABS.TRASH,
+    type: MENU_ITEM_TYPES.MENU,
+    text: "Trash",
+    Icon: Delete,
   },
 ];
 

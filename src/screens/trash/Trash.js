@@ -6,9 +6,9 @@ import Rocket from "../../assets/Rocket.png";
 import { Typography } from "@mui/material";
 import PhotoGrid from "../../components/PhotoGrid";
 
-const Photos = () => {
+const Trash = () => {
   const [photos, setPhotos] = useState([]);
-  const photosList = useSelector((state) => state.photos.photos);
+  const photosList = useSelector((state) => state.photos.trashed);
   const { getPhotos } = usePhotos();
   const styles = useStyles();
 
@@ -53,4 +53,4 @@ const useStyles = createUseStyles({
   },
 });
 
-export default Photos;
+export default Trash;
