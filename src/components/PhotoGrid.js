@@ -26,7 +26,7 @@ const PhotoGrid = ({ photos }) => {
   return (
     <div className={styles.contentWrapper}>
       <Gallery
-        images={[...photos, ...photos, ...photos]}
+        images={photos}
         enableLightbox={false}
         onClickThumbnail={onClickThumbnail}
       />
