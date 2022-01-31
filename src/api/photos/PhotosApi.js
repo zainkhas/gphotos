@@ -6,6 +6,11 @@ const getAllPhotos = async () => {
   return post(url);
 };
 
+const getTrashedPhotos = async () => {
+  let url = URL_API + "/trashedphotos";
+  return post(url);
+};
+
 const deleteAll = () => {
   let url = URL_API + "/deleteAll";
   return post(url);
@@ -26,5 +31,6 @@ const photosApi = {
   uploadPhotos,
   deleteAll,
   trashPhoto,
+  getTrashedPhotos,
 };
 export default photosApi;

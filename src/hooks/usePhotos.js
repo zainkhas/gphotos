@@ -1,13 +1,21 @@
 import useSnackBar from "./useSnackBar";
 import useApi from "./useApi";
 import { log } from "../common/Common";
-import { updatePhotos, trash } from "../store/photosReducer";
+import {
+  updatePhotos,
+  trash,
+  updateTrashedPhotos,
+} from "../store/photosReducer";
 import { useDispatch } from "react-redux";
 import { URL_DATA } from "../config";
 
 const usePhotos = () => {
   const { SnackBar } = useSnackBar();
-  const { getAllPhotos, trashPhoto: trashPhotoOnServer } = useApi();
+  const {
+    getAllPhotos,
+    trashPhoto: trashPhotoOnServer,
+    getTrashedPhotos: getTrashedPhotosFromServer,
+  } = useApi();
   const dispatch = useDispatch();
 
   const trashPhoto = async (id, index) => {
@@ -45,7 +53,16 @@ const usePhotos = () => {
     }
   };
 
-  return { getPhotos, trashPhoto };
+  const getTrashedPhotos = async () => {
+    try {
+      let res = await getTrashedPhotosFromServer();
+      dispatch(updateTrashedPhotos(transformData(res)));
+    } catch (error) {
+      log("Error getTrashedPhotos: ", error);
+    }
+  };
+
+  return { getPhotos, trashPhoto, getTrashedPhotos };
 };
 
 export default usePhotos;

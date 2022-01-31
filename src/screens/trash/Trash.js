@@ -9,7 +9,7 @@ import PhotoGrid from "../../components/PhotoGrid";
 const Trash = () => {
   const [photos, setPhotos] = useState([]);
   const photosList = useSelector((state) => state.photos.trashed);
-  const { getPhotos } = usePhotos();
+  const { getTrashedPhotos } = usePhotos();
   const styles = useStyles();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Trash = () => {
   }, [photosList]);
 
   useEffect(() => {
-    getPhotos();
+    getTrashedPhotos();
   }, []);
 
   if (photos?.length === 0) {

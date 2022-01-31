@@ -12,6 +12,9 @@ export const counterSlice = createSlice({
     updatePhotos: (state, action) => {
       state.photos = action.payload;
     },
+    updateTrashedPhotos: (state, action) => {
+      state.trashed = action.payload;
+    },
     trash: (state, action) => {
       state.trashed = [...state.trashed, state.photos[action.payload]];
       state.photos = [
@@ -22,6 +25,7 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { updatePhotos, trash } = counterSlice.actions;
+export const { updatePhotos, trash, updateTrashedPhotos } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;
