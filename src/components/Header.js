@@ -21,7 +21,7 @@ const Header = ({ title, onBack }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar position="relative" className={styles.appbar}>
+      <AppBar position="relative" className={styles.appbar} elevation={0}>
         <Toolbar>
           <IconButton aria-label="back" onClick={onBack ? onBack : onBackClick}>
             <ArrowBack className={styles.headerIcon} />
