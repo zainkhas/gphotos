@@ -88,10 +88,12 @@ const MainHeader = ({
     onDeletePress();
   };
 
+  console.log("styles: ", styles);
+
   //TODO Account circle and menu not showing in mobile
   return (
     <ThemeProvider theme={theme}>
-      <AppBar position="static" className={styles.appBar}>
+      <AppBar position="static" className={styles.appBar} elevation={0}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -173,11 +175,11 @@ const MainHeader = ({
 const useStyles = () =>
   useThemeStyles((theme) => ({
     icon: {
-      color: theme.palette.grey["700"],
+      color: `${theme.palette.grey["700"]} !important`,
       paddingRight: 10,
     },
     headerMenuIcon: {
-      color: theme.palette.grey["700"],
+      color: `${theme.palette.grey["700"]} !important`,
     },
     appBar: {
       boxShadow: "none",
