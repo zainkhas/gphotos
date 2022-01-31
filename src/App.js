@@ -1,10 +1,12 @@
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomeNavigator from "./navigation/HomeNavigator";
 import { Helmet } from "react-helmet";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./theme/theme";
 import useSnackBar from "./hooks/useSnackBar";
+import Home from "./screens/home/Home";
+import Upload from "./screens/upload/Upload";
 
 function App() {
   const { SnackBarAlert } = useSnackBar();
@@ -14,9 +16,15 @@ function App() {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Helmet>
       <ThemeProvider theme={theme}>
-        <Route exact path="/">
-          <HomeNavigator />
-        </Route>
+        <Switch>
+          <Route path="/upload">
+            <Upload />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+
         <SnackBarAlert />
       </ThemeProvider>
     </Router>

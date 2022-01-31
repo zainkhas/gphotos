@@ -5,6 +5,7 @@ import usePhotos from "../../hooks/usePhotos";
 import Rocket from "../../assets/Rocket.png";
 import { Typography } from "@mui/material";
 import PhotoGrid from "../../components/PhotoGrid";
+import Gallery from "react-grid-gallery";
 
 const Photos = () => {
   const [photos, setPhotos] = useState([]);

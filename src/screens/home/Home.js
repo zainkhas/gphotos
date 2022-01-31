@@ -4,7 +4,7 @@ import Drawer, { DRAWER_WIDTH } from "./Drawer";
 import MainHeader from "./MainHeader";
 import { createUseStyles } from "react-jss";
 import Photos from "../photos/Photos";
-import { useHistory } from "react-router-dom";
+import { Router, useHistory, Switch, Route } from "react-router-dom";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import useApi from "../../hooks/useApi";
 import { log } from "../../common/Common";
@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { updatePhotos } from "../../store/photosReducer";
 import { DRAWER_TABS } from "./DRAWER_TABS";
 import Trash from "../trash/Trash";
+import useThemeStyles from "../../hooks/useThemeStyles";
 
 const HomeContent = ({ tabIndex }) => {
   const ref = useRef(null);
@@ -42,6 +43,7 @@ const Home = ({ window }) => {
   const [deleting, setDeleting] = useState(false);
   const { SnackBar } = useSnackBar();
   const dispatch = useDispatch();
+  const styles = useStyles();
 
   const { deleteAll } = useApi();
 
@@ -80,7 +82,17 @@ const Home = ({ window }) => {
   const onUploadClick = () => history.push("/upload");
 
   const onSearch = () => {};
-  const onMenuChange = (index) => setTabIndex(index);
+  const onMenuChange = (index) => {
+    switch (index) {
+      case DRAWER_TABS.TRASH:
+        history.push("/trash");
+        break;
+
+      default:
+        history.push("/");
+        break;
+    }
+  };
 
   return (
     <Box
@@ -104,29 +116,45 @@ const Home = ({ window }) => {
         handleDrawerToggle={handleDrawerToggle}
         onMenuChange={onMenuChange}
       />
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          flexDirection: "column",
-        }}
-      >
-        <HomeContent tabIndex={tabIndex} />
-        <DeleteConfirmDialog
-          open={openDeleteConfirmDialog}
-          onClose={closeDeleteDialog}
-          onConfirm={onDeleteConfirm}
-          loading={deleting}
-        />
+      <Box component="main">
+        {/* <HomeContent tabIndex={tabIndex} /> */}
+        <Box className={styles.container}>
+          <Switch>
+            <Route path="/trash">
+              <Trash />
+            </Route>
+            <Route path="/">
+              <Photos />
+            </Route>
+          </Switch>
+          <DeleteConfirmDialog
+            open={openDeleteConfirmDialog}
+            onClose={closeDeleteDialog}
+            onConfirm={onDeleteConfirm}
+            loading={deleting}
+          />
+        </Box>
       </Box>
     </Box>
   );
 };
 
-const useStyles = createUseStyles({
-  homeContent: {
-    marginLeft: DRAWER_WIDTH,
-  },
-});
+const useStyles = () =>
+  useThemeStyles((theme) => {
+    console.log("Theme: ", theme);
+    return {
+      homeContent: {
+        marginLeft: DRAWER_WIDTH,
+      },
+      container: {
+        position: "relative",
+        display: "block",
+        marginLeft: "240px",
+        [theme.breakpoints.only("xs")]: {
+          marginLeft: "0px",
+        },
+      },
+    };
+  });
 
 export default Home;

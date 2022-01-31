@@ -26,7 +26,7 @@ const PhotoGrid = ({ photos }) => {
   return (
     <div className={styles.contentWrapper}>
       <Gallery
-        images={photos}
+        images={[...photos, ...photos, ...photos]}
         enableLightbox={false}
         onClickThumbnail={onClickThumbnail}
       />
@@ -47,7 +47,6 @@ const PhotoGrid = ({ photos }) => {
 
 const useStyles = createUseStyles({
   contentWrapper: {
-    background: "#fff",
     minHeight: 360,
   },
 });

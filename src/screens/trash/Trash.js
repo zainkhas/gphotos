@@ -25,10 +25,10 @@ const Trash = () => {
       <div className={styles.empty}>
         <img src={Rocket} alt={"NoPhotos"} className={styles.emptyImage} />
         <Typography variant="h6" gutterBottom component="div">
-          No Photos added yet
+          Trash is empty
         </Typography>
         <Typography variant="body1" gutterBottom>
-          Upload some photos first to see them here
+          Trashed photos will show up here
         </Typography>
       </div>
     );
