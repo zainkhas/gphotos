@@ -19,6 +19,7 @@ import {
   Delete,
 } from "@mui/icons-material";
 import { DRAWER_TABS } from "./DRAWER_TABS";
+import { useLocation } from "react-router-dom";
 
 export const DRAWER_WIDTH = 240;
 const MENU_ITEM_TYPES = {
@@ -32,12 +33,14 @@ const menu = [
     type: MENU_ITEM_TYPES.MENU,
     text: "Photos",
     Icon: Photo,
+    path: "/",
   },
   {
     id: DRAWER_TABS.EXPLORER,
     type: MENU_ITEM_TYPES.MENU,
     text: "Explore",
     Icon: Search,
+    path: "/explorer",
   },
   {
     type: MENU_ITEM_TYPES.SUB_HEADER,
@@ -48,45 +51,57 @@ const menu = [
     type: MENU_ITEM_TYPES.MENU,
     text: "Favorite",
     Icon: StarBorder,
+    path: "/favorite",
   },
   {
     id: DRAWER_TABS.ALBUM,
     type: MENU_ITEM_TYPES.MENU,
     text: "Album",
     Icon: PhotoAlbum,
+    path: "/album",
   },
   {
     id: DRAWER_TABS.TRASH,
     type: MENU_ITEM_TYPES.MENU,
     text: "Trash",
     Icon: Delete,
+    path: "/trash",
   },
 ];
 
-const DrawerMenuItems = ({ onMenuChange }) => (
-  <div>
-    <Toolbar />
-    <Divider />
-    <List>
-      {menu.map((item) =>
-        item.type === MENU_ITEM_TYPES.MENU ? (
-          <ListItem
-            button
-            key={item.text}
-            onClick={() => onMenuChange(item.id)}
-          >
-            <ListItemIcon>
-              <item.Icon />
-            </ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItem>
-        ) : (
-          <ListSubheader key={item.text}>{item.text}</ListSubheader>
-        )
-      )}
-    </List>
-  </div>
-);
+const DrawerMenuItems = ({ onMenuChange }) => {
+  const location = useLocation();
+  return (
+    <div>
+      <Toolbar />
+      <Divider />
+      <List>
+        {menu.map((item) =>
+          item.type === MENU_ITEM_TYPES.MENU ? (
+            <ListItem
+              button
+              key={item.text}
+              sx={{
+                backgroundColor: (theme) =>
+                  location?.pathname == item.path
+                    ? theme?.palette?.action?.selected
+                    : "#FFF",
+              }}
+              onClick={() => onMenuChange(item.id)}
+            >
+              <ListItemIcon>
+                <item.Icon />
+              </ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          ) : (
+            <ListSubheader key={item.text}>{item.text}</ListSubheader>
+          )
+        )}
+      </List>
+    </div>
+  );
+};
 
 const Drawer = ({ container, open, handleDrawerToggle, onMenuChange }) => {
   return (
