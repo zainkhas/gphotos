@@ -2,7 +2,7 @@ import { Box, LinearProgress, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { createUseStyles } from "react-jss";
 
-const UploadThumbnail = ({ file, progress }) => {
+const UploadThumbnail = ({ file, progress, imageRef, canvasRef }) => {
   const styles = useStyles();
   const [fileProgress, setFileProgress] = useState(0);
 
@@ -17,10 +17,19 @@ const UploadThumbnail = ({ file, progress }) => {
   return (
     <div className={styles.imageContainer}>
       <img
+        ref={imageRef}
         key={file.name + "file"}
         src={file.preview}
         alt={file.name}
         className={styles.image}
+        width={200}
+        height={250}
+      />
+      <canvas
+        ref={canvasRef}
+        className={styles.overlay2}
+        width={200}
+        height={250}
       />
       {fileProgress < 100 && (
         <div className={styles.overlay}>
@@ -62,6 +71,15 @@ const useStyles = createUseStyles({
     height: 250,
     backgroundColor: "#FFF",
     opacity: 0.7,
+    zIndex: 1300,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  overlay2: {
+    position: "absolute",
+    width: 200,
+    height: 250,
     zIndex: 1300,
     display: "flex",
     justifyContent: "center",

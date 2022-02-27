@@ -5,12 +5,14 @@ import { Typography } from "@mui/material";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import UploadThumbnail from "./UploadThumbnail";
 
-const Uploader = ({ onDrop, maxFiles = 100, progress }) => {
+const Uploader = ({ onDrop, maxFiles = 100, progress, setRef }) => {
   const [over, setover] = useState(false);
   const [files, setfiles] = useFiles({ maxFiles });
   const $input = useRef(null);
   const styles = useStyles();
   const uploadAnimation = require("../../assets/upload_animation.json");
+
+  const onClick = () => $input.current.click();
 
   useEffect(() => {
     if (onDrop) {
@@ -18,11 +20,10 @@ const Uploader = ({ onDrop, maxFiles = 100, progress }) => {
     }
   }, [files]);
 
-  const onClick = () => $input.current.click();
-
   const onDropFile = (e) => {
     e.preventDefault();
     e.persist();
+
     setfiles(e.dataTransfer.files);
     setover(false);
   };
@@ -82,8 +83,14 @@ const Uploader = ({ onDrop, maxFiles = 100, progress }) => {
         />
       </div>
       <div className={styles.images}>
-        {files.map((file) => (
-          <UploadThumbnail file={file} progress={progress} />
+        {files.map((file, index) => (
+          <UploadThumbnail
+            key={file.name}
+            file={file}
+            progress={progress}
+            imageRef={setRef(file.name)}
+            canvasRef={setRef("canvas_" + file.name)}
+          />
         ))}
       </div>
     </>

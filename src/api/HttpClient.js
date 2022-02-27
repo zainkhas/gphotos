@@ -28,6 +28,9 @@ export const upload = (url, params, filesKey, files, onProgress) => {
   return new Promise((resolve, reject) => {
     const formData = new FormData();
     files.map((file) => formData.append(filesKey, file));
+    if (params) {
+      Object.keys(params).map((key) => formData.append(key, params[key]));
+    }
 
     axios({
       method: "POST",
