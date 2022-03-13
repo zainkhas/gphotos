@@ -18,7 +18,32 @@ const useFaceApi = () => {
     // let res = detections.map((d) => Object.values(d.box));
   };
 
-  return { loadModels, detectFaces };
+  const assignLabel = (label, descriptor) => {
+    const labeledDescriptors = [
+      new faceapi.LabeledFaceDescriptors(label, [descriptor]),
+    ];
+    return labeledDescriptors;
+  };
+
+  const recognize = async (facesToRecognize, faces) => {
+    console.log("facesToRecognize: ", facesToRecognize);
+    // const labeledFaceDescriptors = faces
+    //   .flat()
+    //   .map((item) => faceapi.LabeledFaceDescriptors.fromJSON(item));
+
+    const labeledFaceDescriptors = faces.map((item) =>
+      faceapi.LabeledFaceDescriptors.fromJSON(item)
+    );
+
+    const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
+
+    facesToRecognize.forEach((fd) => {
+      const bestMatch = faceMatcher.findBestMatch(fd.descriptor);
+      console.log("Recongnize Results: ", bestMatch.toString());
+    });
+  };
+
+  return { loadModels, detectFaces, assignLabel, recognize };
 };
 
 export default useFaceApi;
