@@ -25,25 +25,15 @@ const useFaceApi = () => {
     return labeledDescriptors;
   };
 
-  const recognize = async (facesToRecognize, faces) => {
-    console.log("facesToRecognize: ", facesToRecognize);
-    // const labeledFaceDescriptors = faces
-    //   .flat()
-    //   .map((item) => faceapi.LabeledFaceDescriptors.fromJSON(item));
-
+  const recognizeFace = async (face, faces) => {
     const labeledFaceDescriptors = faces.map((item) =>
       faceapi.LabeledFaceDescriptors.fromJSON(item)
     );
-
     const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
-
-    facesToRecognize.forEach((fd) => {
-      const bestMatch = faceMatcher.findBestMatch(fd.descriptor);
-      console.log("Recongnize Results: ", bestMatch.toString());
-    });
+    return faceMatcher.findBestMatch(face.descriptor).label;
   };
 
-  return { loadModels, detectFaces, assignLabel, recognize };
+  return { loadModels, detectFaces, assignLabel, recognizeFace };
 };
 
 export default useFaceApi;

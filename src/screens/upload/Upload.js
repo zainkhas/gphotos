@@ -11,7 +11,7 @@ import { LABELLED_DESCRIPTORS } from "../../dummydata/DummyData";
 const Upload = () => {
   const { uploadPhotos } = useApi();
   const [progress, setProgress] = useState({});
-  const { loadModels, detectFaces, assignLabel, recognize } = useFaceApi();
+  const { loadModels, detectFaces, assignLabel, recognizeFace } = useFaceApi();
   const [getRef, setRef] = useDynamicRefs();
   const [modelsLoaded, setModelsLoaded] = useState(false);
 
@@ -55,13 +55,23 @@ const Upload = () => {
         console.log("detectedFaces: ", detectedFaces);
 
         //Recognize all the detected faces
+        let unrecognizedFaces = [];
 
-        recognize(detectedFaces, JSON.parse(LABELLED_DESCRIPTORS));
+        for (let i = 0; i < detectedFaces.length; i++) {
+          const face = detectedFaces[i];
+          let res = await recognizeFace(face, JSON.parse(LABELLED_DESCRIPTORS));
+          log("Label: ", res);
+          log("Condition: ", res === "unknown");
+          if (res === "unknown") {
+            unrecognizedFaces.push(face);
+          }
+        }
 
-        //STEP 2: Label the Faces
-        detectedFaces?.map((face) => {
+        log("unrecognizedFaces: ", unrecognizedFaces);
+        // STEP 2: Label the Faces
+        unrecognizedFaces?.map((face) => {
           // descriptors.push(face?.descriptor);
-          const label = moment().format("HH:mm:ss");
+          const label = moment().format("DDMMYYYYHHmmss");
           let labeledDescriptor = assignLabel(label, face?.descriptor);
           const descriptorsArr = labeledDescriptor.map((item) => item.toJSON());
           descriptors[label] = JSON.stringify(descriptorsArr);
@@ -70,8 +80,6 @@ const Upload = () => {
             JSON.stringify(descriptorsArr)
           );
         });
-
-        console.log("Descriptors: ", descriptors);
       } catch (error) {
         log("Error uploading photos: ", error);
       }
