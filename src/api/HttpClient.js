@@ -31,7 +31,6 @@ export const upload = (url, params, filesKey, files, onProgress) => {
     if (params) {
       Object.keys(params).map((key) => formData.append(key, params[key]));
     }
-
     axios({
       method: "POST",
       url,

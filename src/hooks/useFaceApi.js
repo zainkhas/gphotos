@@ -26,9 +26,9 @@ const useFaceApi = () => {
   };
 
   const recognizeFace = async (face, faces) => {
-    const labeledFaceDescriptors = faces.map((item) =>
-      faceapi.LabeledFaceDescriptors.fromJSON(item)
-    );
+    const labeledFaceDescriptors = faces
+      .flat()
+      .map((item) => faceapi.LabeledFaceDescriptors.fromJSON(item));
     const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
     return faceMatcher.findBestMatch(face.descriptor).label;
   };

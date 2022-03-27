@@ -16,9 +16,9 @@ const deleteAll = () => {
   return post(url);
 };
 
-const uploadPhotos = (files, onProgress) => {
+const uploadPhotos = (files, descriptors, onProgress) => {
   let url = URL_API + "/photos/upload";
-  return upload(url, null, "photos", files, onProgress);
+  return upload(url, descriptors, "photos", files, onProgress);
 };
 
 const trashPhoto = (ids) => {
