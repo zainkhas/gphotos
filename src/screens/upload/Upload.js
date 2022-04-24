@@ -90,7 +90,7 @@ const Upload = () => {
             let isRecognized = false;
             if (facesArr.length > 0) {
               let res = await recognizeFace(face, facesArr);
-              log("Condition: ", res === "unknown");
+              log("Recognized already: ", res !== "unknown");
               if (res !== "unknown") {
                 isRecognized = true;
               }

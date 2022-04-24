@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import HomeNavigator from "./navigation/HomeNavigator";
 import { Helmet } from "react-helmet";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./theme/theme";

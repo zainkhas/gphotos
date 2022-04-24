@@ -14,6 +14,7 @@ import { updatePhotos } from "../../store/photosReducer";
 import { DRAWER_TABS } from "./DRAWER_TABS";
 import Trash from "../trash/Trash";
 import useThemeStyles from "../../hooks/useThemeStyles";
+import { deleteAllFaces } from "../../store/facesReducer";
 
 const HomeContent = ({ tabIndex }) => {
   const ref = useRef(null);
@@ -37,7 +38,6 @@ const HomeContent = ({ tabIndex }) => {
 
 const Home = ({ window }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [tabIndex, setTabIndex] = useState(0);
   const [openDeleteConfirmDialog, setOpenDeleteConfirmDialog] = useState(false);
   const history = useHistory();
   const [deleting, setDeleting] = useState(false);
@@ -66,6 +66,8 @@ const Home = ({ window }) => {
     setDeleting(true);
     try {
       let res = await deleteAll();
+      dispatch(deleteAllFaces());
+
       log("deleteAll response: ", res);
       setDeleting(false);
       closeDeleteDialog();

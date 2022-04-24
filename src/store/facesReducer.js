@@ -11,9 +11,12 @@ export const facesSlice = createSlice({
     addFaces: (state, action) => {
       state.faces = { ...state.faces, ...action.payload };
     },
+    deleteAllFaces: (state, action) => {
+      state.faces = {};
+    },
   },
 });
 
-export const { addFaces } = facesSlice.actions;
+export const { addFaces, deleteAllFaces } = facesSlice.actions;
 
 export default facesSlice.reducer;
