@@ -10,7 +10,7 @@ import { LABELLED_DESCRIPTORS } from "../../dummydata/DummyData";
 import useFaces from "../../hooks/useFaces";
 import { useSelector } from "react-redux";
 
-let newFaceDescriptors = {};
+let allNewFaceDescriptors = {};
 
 let facesArr = [];
 
@@ -26,7 +26,7 @@ const Upload = () => {
   log("Progress: ", progress);
 
   const initialize = async () => {
-    newFaceDescriptors = {};
+    allNewFaceDescriptors = {};
     facesArr = [];
 
     await loadModels();
@@ -69,14 +69,14 @@ const Upload = () => {
       moment().format("DDMMYYYYHHmmss") + Math.floor(Math.random() * 1000);
     let labeledDescriptor = assignLabel(label, face?.descriptor);
     const descriptorsArr = labeledDescriptor.map((item) => item.toJSON());
-    newFaceDescriptors[label] = JSON.stringify(descriptorsArr);
+    allNewFaceDescriptors[label] = JSON.stringify(descriptorsArr);
     facesToUpload[label] = JSON.stringify(descriptorsArr);
-    addFaces(newFaceDescriptors);
+    addFaces(allNewFaceDescriptors);
   };
 
   const onDrop = async (droppedFiles) => {
     for (let i = 0; i < droppedFiles.length; i++) {
-      let facesToUpload = {};
+      let currentPhotoFaceDescriptors = {};
       try {
         const file = droppedFiles[i];
         let inProgress = file.name in progress;
@@ -97,13 +97,12 @@ const Upload = () => {
             }
 
             if (!isRecognized) {
-              facesToUpload;
-              createLabel(face, facesToUpload);
+              createLabel(face, currentPhotoFaceDescriptors);
             }
           }
 
           await uploadPhoto(file, {
-            faces: JSON.stringify(facesToUpload),
+            faces: JSON.stringify(currentPhotoFaceDescriptors),
           });
         }
       } catch (error) {
